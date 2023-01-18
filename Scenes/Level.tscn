@@ -7,9 +7,9 @@
 script = ExtResource( 1 )
 
 [node name="Street" type="Sprite" parent="."]
-position = Vector2( 516, 300 )
+position = Vector2( 515, 303 )
 scale = Vector2( 4.60714, 2.67857 )
 texture = ExtResource( 2 )
 
 [node name="PlayerSpawn" type="Node2D" parent="."]
-position = Vector2( 504, 288 )
+position = Vector2( 514, 298 )

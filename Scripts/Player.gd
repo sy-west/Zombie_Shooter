@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 onready var P_Sprite = $Sprite
 var target = Vector2.ZERO
-var speed = 500
+var speed = 200
 var velocity = global_position.direction_to(target) * speed
 
 func _ready():
