@@ -1,28 +1,13 @@
 extends KinematicBody2D
 
-var speed: int = 200
-var rotation_speed = 2
+var speed: int = 250
 
-var vel : Vector2 = Vector2()
-var rotation_dir = 0
+var vel : Vector2 = Vector2.ZERO
 
 onready var P_Sprite = $Sprite
 
 func _ready():
 	pass
-
-func get_input():
-	rotation_dir = 0
-	vel = Vector2.ZERO
-	if Input.is_action_pressed("move_left"):
-		rotation_dir -= rotation_speed
-	if Input.is_action_pressed("move_right"):
-		rotation_dir += rotation_speed
-	if Input.is_action_pressed("move_down"):
-		vel -= transform.x * speed
-	if Input.is_action_pressed("move_up"):
-		vel += transform.x * speed
-		
 
 func _physics_process(delta):
 	vel.x = 0
@@ -36,11 +21,9 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_up"):
 		vel.y -= speed
 	
-	vel = move_and_slide_with_snap(vel, Vector2())
+	vel = move_and_slide_with_snap(vel, Vector2.ZERO)
 	
-	get_input()
-	rotation += rotation_dir * rotation_speed * delta
-	vel += move_and_slide_with_snap(vel, Vector2())
+	look_at(get_global_mouse_position())
 
 func Shoot():
 	pass
