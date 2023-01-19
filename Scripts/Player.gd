@@ -1,22 +1,46 @@
 extends KinematicBody2D
 
+var speed: int = 200
+var rotation_speed = 1.5
+
+var vel : Vector2 = Vector2()
+var rotation_dir = 0
+
 onready var P_Sprite = $Sprite
-var target = Vector2.ZERO
-var speed = 200
-var velocity = global_position.direction_to(target) * speed
 
 func _ready():
 	pass
 
+func get_input():
+	rotation_dir = 0
+	vel = Vector2.ZERO
+	if Input.is_action_pressed("move_left"):
+		rotation_dir -= 1
+	if Input.is_action_pressed("move_right"):
+		rotation_dir += 1
+	if Input.is_action_pressed("move_down"):
+		vel -= transform.x * speed
+	if Input.is_action_pressed("move_up"):
+		vel += transform.x * speed
+		
+
 func _physics_process(delta):
-	var mouse = get_global_mouse_position()
-	P_Sprite.look_at(mouse)
+	vel.x = 0
+	vel.y = 0
+	if Input.is_action_pressed("move_left"):
+		vel.x -= speed
+	if Input.is_action_pressed("move_right"):
+		vel.x += speed
+	if Input.is_action_pressed("move_down"):
+		vel.y += speed
+	if Input.is_action_pressed("move_up"):
+		vel.y -= speed
 	
-	if Input.is_mouse_button_pressed(1): #when click left moouse button
-		target = get_global_mouse_position()
-		velocity = global_position.direction_to(target) * speed
-	if global_position.distance_to(target) > 5:
-		velocity = move_and_slide(velocity)
+	vel = move_and_slide_with_snap(vel, Vector2())
+	
+	get_input()
+	rotation += rotation_dir * rotation_speed * delta
+	vel += move_and_slide_with_snap(vel, Vector2())
 
 func Shoot():
 	pass
