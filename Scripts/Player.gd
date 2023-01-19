@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var speed: int = 200
-var rotation_speed = 1.5
+var rotation_speed = 2
 
 var vel : Vector2 = Vector2()
 var rotation_dir = 0
@@ -15,9 +15,9 @@ func get_input():
 	rotation_dir = 0
 	vel = Vector2.ZERO
 	if Input.is_action_pressed("move_left"):
-		rotation_dir -= 1
+		rotation_dir -= rotation_speed
 	if Input.is_action_pressed("move_right"):
-		rotation_dir += 1
+		rotation_dir += rotation_speed
 	if Input.is_action_pressed("move_down"):
 		vel -= transform.x * speed
 	if Input.is_action_pressed("move_up"):
